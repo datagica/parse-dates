@@ -2,7 +2,7 @@ const chai = require('chai');
 chai.use(require('chai-fuzzy'));
 const expect = chai.expect;
 
-import parseDates from '../../lib/parse-dates';
+const parseDates = require("../lib/parse-dates");
 
 describe('@datagica/parse-dates', () => {
 
@@ -48,6 +48,41 @@ describe('@datagica/parse-dates', () => {
             date: 17,
             year: 1973
           }
+        }
+      ].map(test => {
+        return parseDates(test.input, {
+          min: 21,
+          max: 75
+        }).then(output => {
+
+          console.log(JSON.stringify(output));
+          expect(output).to.be.like(test.output)
+          return Promise.resolve(true)
+        })
+      })).then(finished => {
+      done()
+    }).catch(exc => {
+      console.error(exc)
+    })
+  })
+
+
+  it('should extract multiple dates (NOTE: NOT SUPPORTED FOR THE MOMENT)', (done) => {
+    Promise.all(
+      [
+
+        {
+          input: `name: john, born: 1 sept 1945
+          "name: tom, born: 2 nov 1948`,
+
+          // TODO this should return an array, not a single item
+          output: {
+            str: 'Sat Sep 01 1945 00:00:00 GMT+0200 (CEST)',
+             timestamp: -767930400000,
+             month: 9,
+             date: 1,
+             year: 1945
+           }
         }
       ].map(test => {
         return parseDates(test.input, {
