@@ -1,6 +1,6 @@
 {
   "name": "@datagica/parse-dates",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "date parser. Can detect dates in a document. well, most of the time.",
   "main": "./lib/parse-dates.js",
   "scripts": {
@@ -16,7 +16,7 @@
     "access": "public"
   },
   "dependencies": {
-    "xregexp": "^3.0.0"
+    "xregexp": "3.0.0"
   },
   "devDependencies": {
     "chai": "3.2.0",
